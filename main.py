@@ -19,7 +19,7 @@ def keep_alive():
 import telebot
 
 # --- ၁။ BOT TOKEN ထည့်သွင်းခြင်း ---
-TOKEN = '8754498485:AAGBuerMGoPT5tFk9ydTyX69nUAnC-9CJnU'
+TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
 
 # --- ၂။ CHANNEL ID ထည့်သွင်းခြင်း ---
