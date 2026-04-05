@@ -1,3 +1,21 @@
+from flask import Flask
+from threading import Thread
+
+# ၁။ Website အသေးလေးတစ်ခု ဆောက်တာ
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is Running 24/7!"
+
+# ၂။ အဲ့ဒီ Website ကို Port 8080 မှာ ဖွင့်ပေးတာ
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+# ၃။ Bot အလုပ်လုပ်နေတုန်း ဒီ Website လေးကို နောက်ကွယ်ကနေ မောင်းပေးတာ
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
 import telebot
 
 # --- ၁။ BOT TOKEN ထည့်သွင်းခြင်း ---
@@ -56,5 +74,7 @@ def copy_value(message):
     except Exception as e:
         bot.reply_to(message, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
 
+if _name_ == "_main_":
+    keep_alive()  # Website လေးကို စနှိုးလိုက်တာ
 print("--- Bot is Running ---")
 bot.infinity_polling()
