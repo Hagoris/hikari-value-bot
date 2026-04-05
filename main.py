@@ -1,7 +1,6 @@
 from flask import Flask
 from threading import Thread
 
-# ၁။ Website အသေးလေးတစ်ခု ဆောက်တာ
 app = Flask('')
 
 @app.route('/')
@@ -16,6 +15,7 @@ def run():
 def keep_alive():
     t = Thread(target=run)
     t.start()
+    
 import telebot
 
 # --- ၁။ BOT TOKEN ထည့်သွင်းခြင်း ---
