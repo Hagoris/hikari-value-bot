@@ -21,6 +21,12 @@ bot = telebot.TeleBot(TOKEN)
 
 ADMIN_ID = 5407896838
 
+@bot.message_handler(commands=['suggestions'])
+def start_suggestion(message):
+    msg = bot.send_message(message.chat.id, "Send Your Suggestions or Feedback to The Chatbox.")
+
+bot.register_next_step_handler(msg, process_suggestion)
+
 def process_suggestion(message):
     try:
         user_text = message.text
