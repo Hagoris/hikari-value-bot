@@ -29,17 +29,18 @@ def start_suggestion(message):
 
 def process_suggestion(message):
     try:
-        user_text = message.text
+        
         user_first_name = message.from_user.first_name
         user_username = f"@{message.from_user.username}" if message.from_user.username else "NONE"
         user_id = message.from_user.id
+        user_text = message.text
         
         admin_alert = (
-            f"📩 **New Suggestion has Arrived!**\n\n"
-            f"💬 **Suggestion:** {user_text}\n\n"
-            f"👤 **Name** {user_first_name}\n"
-            f"🆔 **Username:** {user_username}\n"
-            f"🔢 **User ID:** {user_id}"
+            f"📩 New Suggestion has Arrived!\n\n"
+            f"👤 Name {user_first_name}\n"
+            f"🆔 Username: {user_username}\n"
+            f"🔢 User ID: {user_id}"
+            f"💬 Suggestion:\n\n {user_text}\n\n"
         )
         bot.send_message(ADMIN_ID, admin_alert)
         
