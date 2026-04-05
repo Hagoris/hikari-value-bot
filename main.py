@@ -45,7 +45,7 @@ def send_welcome(message):
         "👋 Welcome to Hikari Value Bot!\n\n"
         "Type `/value [item name]` to see the value of items."
     )
-    bot.reply_to(message, welcome_msg, parse_mode='Markdown')
+    bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
 
 @bot.message_handler(commands=['value'])
 def copy_value(message):
@@ -54,7 +54,7 @@ def copy_value(message):
         input_parts = message.text.split(maxsplit=1)
 
         if len(input_parts) < 2:
-            bot.reply_to(message, "💡 Usage: `/value [item name]`", parse_mode='Markdown')
+            bot.send_message(message.chat.id, "💡 Usage: `/value [item name]`", parse_mode='Markdown')
             return
 
         item_name = input_parts[1].lower().strip()
@@ -69,10 +69,10 @@ def copy_value(message):
                 message_id=msg_id
             )
         else:
-            bot.reply_to(message, f"❌ Item '{item_name}' not found.")
+            bot.send_message(message.chat.id, f"❌ Item '{item_name}' not found.")
 
     except Exception as e:
-        bot.reply_to(message, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
+        bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
 
 if _name_ == "_main_":
     keep_alive()  # Website လေးကို စနှိုးလိုက်တာ
