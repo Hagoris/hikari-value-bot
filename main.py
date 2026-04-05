@@ -59,7 +59,7 @@ items_database = {
 def send_welcome(message):
     welcome_msg = (
         "👋 Welcome to Hikari Value Bot!\n\n"
-        "Type `/value [item name]` to see the value of items."
+        "Type `/value [item name]` to see the value of items.\n"
         "Type `/suggestions` to Give a Suggestions to The ADMIN."
     )
     bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
