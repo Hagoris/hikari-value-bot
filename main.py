@@ -74,7 +74,7 @@ def copy_value(message):
     except Exception as e:
         bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     keep_alive()  # Website လေးကို စနှိုးလိုက်တာ
 print("--- Bot is Running ---")
 bot.infinity_polling()
