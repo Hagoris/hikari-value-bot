@@ -65,7 +65,11 @@ items_database = {
     "jõtunn": 9,
     "equinox moon": 10,
     "moai": 11,
-    "grumpy": 12
+    "grumpy": 12,
+    "attack serum": 13,
+    "armour serum": 14,
+    "female serum": 15,
+    "colossal serum": 16
 }
 
 @bot.message_handler(commands=['start'])
