@@ -19,6 +19,12 @@ import telebot
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
 
+@bot.message_handler(commands=['status'])
+def check_status(message):
+    # Bot က အသက်ရှိကြောင်း ပြန်ပြောမယ့်စာ
+    status_text = "✅ Bot Status: Online\n\nEverything is working perfectly! I am ready to help you."
+    bot.reply_to(message, status_text, parse_mode='Markdown')
+    
 ADMIN_ID = 5407896838
 
 @bot.message_handler(commands=['suggestions'])
