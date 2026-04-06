@@ -80,13 +80,13 @@ items_database = {
     "giyu attire": 17,
     "giyu": 17,
     "titanstrike":18,
-    "tengen attire": 19'
+    "tengen attire": 19,
     "tengen": 19,
     "sorcerer attire": 20,
     "soucerer attire": 20,
     "socerer attire": 20,
     "soul reaper attire": 21,
-    "sra": 21,
+    "sra": 21
 }
 
 @bot.message_handler(commands=['start'])
