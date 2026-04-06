@@ -69,7 +69,10 @@ items_database = {
     "attack serum": 13,
     "armour serum": 14,
     "female serum": 15,
-    "colossal serum": 16
+    "colossal serum": 16,
+    "giyu attire": 17,
+    "giyu": 17,
+    "titanstrike":18
 }
 
 @bot.message_handler(commands=['start'])
