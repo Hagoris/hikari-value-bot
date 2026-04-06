@@ -59,20 +59,34 @@ CHANNEL_ID = -1003842909353
 
 items_database = {
     "vizard mask": 4,
+    "viz": 4,
     "onikiri eren": 7,
+    "oni eren": 7,
     "forsaken": 6,
     "deus ex machina": 8,
     "jõtunn": 9,
+    "jotnn": 9,
+    "jothnn": 9,
     "equinox moon": 10,
     "moai": 11,
     "grumpy": 12,
     "attack serum": 13,
+    "att serum": 13,
     "armour serum": 14,
+    "armoured serum": 14,
     "female serum": 15,
     "colossal serum": 16,
+    "collosal serum": 16,
     "giyu attire": 17,
     "giyu": 17,
-    "titanstrike":18
+    "titanstrike":18,
+    "tengen attire": 19'
+    "tengen": 19,
+    "sorcerer attire": 20,
+    "soucerer attire": 20,
+    "socerer attire": 20,
+    "soul reaper attire": 21,
+    "sra": 21,
 }
 
 @bot.message_handler(commands=['start'])
