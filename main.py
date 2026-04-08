@@ -27,6 +27,39 @@ def check_status(message):
     
 ADMIN_ID = 5407896838
 
+@bot.message_handler(commands=['message'])
+def start_broadcast(message):
+    # မင်း (Admin) ဟုတ်မဟုတ် အရင်စစ်မယ်
+    if message.from_user.id == ADMIN_ID:
+        msg = bot.send_message(message.chat.id, "Write the Sentences or Announcement that You Want to Sent to the Users.")
+        bot.register_next_step_handler(msg, send_broadcast_to_all)
+    else:
+        bot.reply_to(message, "❌ This Command Can Be Only Use by Admin")
+
+def send_broadcast_to_all(message):
+    broadcast_text = message.text
+    # Database ထဲက User ID တွေကို ယူမယ် (အရင်တစ်ခေါက်က သင်ပေးတဲ့ SQLite ကို သုံးထားရင်)
+    conn = sqlite3.connect('bot_users.db')
+    c = conn.cursor()
+    c.execute("SELECT user_id FROM users")
+    users = c.fetchall()
+    conn.close()
+
+    success_count = 0
+    fail_count = 0
+
+    bot.send_message(ADMIN_ID, f"🚀 Sending to the Users")
+
+    for user in users:
+        try:
+            bot.send_message(user[0], broadcast_text)
+            success_count += 1
+        except Exception:
+            # Bot ကို Block ထားတဲ့ User တွေရှိရင် fail ဖြစ်မယ်
+            fail_count += 1
+    
+    bot.send_message(ADMIN_ID, f"✅ Sending Finished!\n\nSucceed: {success_count}\nFailed: {fail_count}")
+
 @bot.message_handler(commands=['suggestions'])
 def start_suggestion(message):
     msg = bot.send_message(message.chat.id, "Send Your Suggestions or Feedback in Here")
