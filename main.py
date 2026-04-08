@@ -188,6 +188,15 @@ def copy_value(message):
     except Exception as e:
         bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
 
+def init_db():
+    conn = sqlite3.connect('bot_users.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
+    conn.commit()
+    conn.close()
+
+init_db()
+
 if __name__ == "__main__":
     keep_alive()
 print("--- Bot is Running ---")
