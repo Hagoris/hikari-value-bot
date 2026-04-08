@@ -41,14 +41,23 @@ def count_users():
 
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
+ADMIN_ID = 5407896838
+
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    log_user(message.from_user.id)
+    welcome_msg = (
+        "👋 Welcome to Hikari Value Bot!\n\n"
+        "Type `/value [item name]` to see the value of items.\n"
+        "Type `/suggestions` to Give a Suggestions to The ADMIN."
+    )
+    bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
 
 @bot.message_handler(commands=['status'])
 def check_status(message):
     # Bot က အသက်ရှိကြောင်း ပြန်ပြောမယ့်စာ
     status_text = "✅ Bot Status: Online\n\nEverything is working perfectly! I am ready to help you."
     bot.reply_to(message, status_text, parse_mode='Markdown')
-    
-ADMIN_ID = 5407896838
 
 @bot.message_handler(commands=['message'])
 def start_broadcast(message):
@@ -154,16 +163,6 @@ items_database = {
     "riss": 27,
     "riess": 27
 }
-
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    log_user(message.from_user.id)
-    welcome_msg = (
-        "👋 Welcome to Hikari Value Bot!\n\n"
-        "Type `/value [item name]` to see the value of items.\n"
-        "Type `/suggestions` to Give a Suggestions to The ADMIN."
-    )
-    bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
 
 @bot.message_handler(commands=['value'])
 def copy_value(message):
