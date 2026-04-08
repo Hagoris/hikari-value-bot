@@ -15,7 +15,29 @@ def keep_alive():
     t.start()
     
 import telebot
+
 import sqlite3
+
+# ၁။ User အသစ်ကို Database ထဲမှတ်ပေးမယ့် function
+def log_user(user_id):
+    conn = sqlite3.connect('bot_users.db')
+    c = conn.cursor()
+    # Table မရှိသေးရင် ဆောက်မယ်
+    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
+    # User ID ကို ထည့်မယ် (ရှိပြီးသားဆိုရင် ကျော်သွားမယ်)
+    c.execute("INSERT OR IGNORE INTO users (user_id) VALUES (?)", (user_id,))
+    conn.commit()
+    conn.close()
+
+# ၂။ စုစုပေါင်း User ဘယ်နှစ်ယောက်ရှိလဲ ရေတွက်မယ့် function
+def count_users():
+    conn = sqlite3.connect('bot_users.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
+    c.execute("SELECT COUNT(*) FROM users")
+    count = c.fetchone()[0]
+    conn.close()
+    return count
 
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
