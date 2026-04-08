@@ -134,6 +134,7 @@ items_database = {
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    log_user(message.from_user.id)
     welcome_msg = (
         "👋 Welcome to Hikari Value Bot!\n\n"
         "Type `/value [item name]` to see the value of items.\n"
