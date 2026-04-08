@@ -15,21 +15,21 @@ def keep_alive():
     t.start()
     
 import telebot
-
 import sqlite3
 
-# ၁။ User အသစ်ကို Database ထဲမှတ်ပေးမယ့် function
+TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
+bot = telebot.TeleBot(TOKEN)
+ADMIN_ID = 5407896838
+CHANNEL_ID = -1003842909353
+
 def log_user(user_id):
     conn = sqlite3.connect('bot_users.db')
     c = conn.cursor()
-    # Table မရှိသေးရင် ဆောက်မယ်
     c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
-    # User ID ကို ထည့်မယ် (ရှိပြီးသားဆိုရင် ကျော်သွားမယ်)
     c.execute("INSERT OR IGNORE INTO users (user_id) VALUES (?)", (user_id,))
     conn.commit()
     conn.close()
 
-# ၂။ စုစုပေါင်း User ဘယ်နှစ်ယောက်ရှိလဲ ရေတွက်မယ့် function
 def count_users():
     conn = sqlite3.connect('bot_users.db')
     c = conn.cursor()
@@ -38,11 +38,6 @@ def count_users():
     count = c.fetchone()[0]
     conn.close()
     return count
-
-TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
-bot = telebot.TeleBot(TOKEN)
-ADMIN_ID = 5407896838
-CHANNEL_ID = -1003842909353
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -59,6 +54,14 @@ def check_status(message):
     # Bot က အသက်ရှိကြောင်း ပြန်ပြောမယ့်စာ
     status_text = "✅ Bot Status: Online\n\nEverything is working perfectly! I am ready to help you."
     bot.reply_to(message, status_text, parse_mode='Markdown')
+
+@bot.message_handler(commands=['users'])
+def show_user_count(message):
+    if message.from_user.id == ADMIN_ID:
+        total = count_users()
+        bot.reply_to(message, f"📊 Users: {total} People")
+    else:
+        bot.reply_to(message, "❌ This Command Can Be Only Use by Admin")
 
 @bot.message_handler(commands=['message'])
 def start_broadcast(message):
