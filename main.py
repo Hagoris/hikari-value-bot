@@ -42,6 +42,7 @@ def count_users():
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
 ADMIN_ID = 5407896838
+CHANNEL_ID = -1003842909353
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -61,7 +62,6 @@ def check_status(message):
 
 @bot.message_handler(commands=['message'])
 def start_broadcast(message):
-    # မင်း (Admin) ဟုတ်မဟုတ် အရင်စစ်မယ်
     if message.from_user.id == ADMIN_ID:
         msg = bot.send_message(message.chat.id, "Write the Sentences or Announcement that You Want to Sent to the Users.")
         bot.register_next_step_handler(msg, send_broadcast_to_all)
@@ -70,7 +70,6 @@ def start_broadcast(message):
 
 def send_broadcast_to_all(message):
     broadcast_text = message.text
-    # Database ထဲက User ID တွေကို ယူမယ် (အရင်တစ်ခေါက်က သင်ပေးတဲ့ SQLite ကို သုံးထားရင်)
     conn = sqlite3.connect('bot_users.db')
     c = conn.cursor()
     c.execute("SELECT user_id FROM users")
@@ -87,7 +86,6 @@ def send_broadcast_to_all(message):
             bot.send_message(user[0], broadcast_text)
             success_count += 1
         except Exception:
-            # Bot ကို Block ထားတဲ့ User တွေရှိရင် fail ဖြစ်မယ်
             fail_count += 1
     
     bot.send_message(ADMIN_ID, f"✅ Sending Finished!\n\nSucceed: {success_count}\nFailed: {fail_count}")
@@ -119,8 +117,6 @@ def process_suggestion(message):
         
     except Exception as e:
         bot.send_message(message.chat.id, "There was an Error. Please Try Again.")
-        
-CHANNEL_ID = -1003842909353
 
 items_database = {
     "vizard mask": 4,
