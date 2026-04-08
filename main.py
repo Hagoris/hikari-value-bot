@@ -86,7 +86,17 @@ items_database = {
     "soucerer attire": 20,
     "socerer attire": 20,
     "soul reaper attire": 21,
-    "sra": 21
+    "sra": 21,
+    "black flash aura": 22,
+    "bf aura": 22,
+    "fritz": 23,
+    "helos": 24,
+    "yeager": 25,
+    "ackerman": 26,
+    "ack": 26,
+    "reiss": 27,
+    "riss": 27,
+    "riess": 27
 }
 
 @bot.message_handler(commands=['start'])
