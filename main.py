@@ -15,29 +15,44 @@ def keep_alive():
     t.start()
     
 import telebot
-import sqlite3
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import time
+
+# --- Google Sheets Setup ---
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# မင်းရဲ့ credentials.json ဖိုင်နာမည်နဲ့ တူရမယ်
+creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+client = gspread.authorize(creds)
+# Google Sheet နာမည်ကို သေချာအောင်ထည့်ပါ
+sheet = client.open("Hikari_Value_Bot").sheet1 
+
+# --- အသစ်ပြန်ရေးထားတဲ့ Functions ---
+
+def log_user(user_id):
+    """User ID အသစ်ဆိုရင် Sheet ရဲ့ Column A မှာ သွားသိမ်းမယ်"""
+    try:
+        all_ids = sheet.col_values(1)
+        if str(user_id) not in all_ids:
+            sheet.append_row([str(user_id)])
+    except Exception as e:
+        print(f"Error logging user: {e}")
+
+def get_all_users():
+    """Sheet ထဲက User ID အကုန်လုံးကို List အနေနဲ့ ယူမယ်"""
+    try:
+        return sheet.col_values(1)
+    except:
+        return []
+
+def count_users():
+    """စုစုပေါင်း User အရေအတွက်ကို Sheet ကနေ ဖတ်မယ်"""
+    return len(get_all_users())
 
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
 ADMIN_ID = 5407896838
 CHANNEL_ID = -1003842909353
-
-def log_user(user_id):
-    conn = sqlite3.connect('bot_users.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
-    c.execute("INSERT OR IGNORE INTO users (user_id) VALUES (?)", (user_id,))
-    conn.commit()
-    conn.close()
-
-def count_users():
-    conn = sqlite3.connect('bot_users.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
-    c.execute("SELECT COUNT(*) FROM users")
-    count = c.fetchone()[0]
-    conn.close()
-    return count
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -48,6 +63,32 @@ def send_welcome(message):
         "Type `/suggestions` to Give a Suggestions to The ADMIN."
     )
     bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
+
+@bot.message_handler(commands=['message'])
+def start_broadcast(message):
+    if message.from_user.id == ADMIN_ID:
+        msg = bot.send_message(message.chat.id, "Write the Sentences that You want to Send")
+        bot.register_next_step_handler(msg, send_broadcast_to_all)
+    else:
+        bot.reply_to(message, "❌ This COmmand can be only use by ADMIN")
+
+def send_broadcast_to_all(message):
+    broadcast_text = message.text
+    user_list = get_all_users() # Google Sheet ကနေ ယူတယ်
+    
+    success = 0
+    fail = 0
+    bot.send_message(ADMIN_ID, f"🚀 Sending To {len(user_list)} Users")
+
+    for uid in user_list:
+        try:
+            bot.send_message(uid, broadcast_text)
+            success += 1
+            time.sleep(0.05) # Telegram က block မလုပ်အောင် ခဏနားမယ်
+        except:
+            fail += 1
+            
+    bot.send_message(ADMIN_ID, f"✅ Sending Finished\n\nSucceed: {success}\nFailed: {fail}")
 
 @bot.message_handler(commands=['status'])
 def check_status(message):
@@ -62,36 +103,6 @@ def show_user_count(message):
         bot.reply_to(message, f"📊 Users: {total} People")
     else:
         bot.reply_to(message, "❌ This Command Can Be Only Use by Admin")
-
-@bot.message_handler(commands=['message'])
-def start_broadcast(message):
-    if message.from_user.id == ADMIN_ID:
-        msg = bot.send_message(message.chat.id, "Write the Sentences or Announcement that You Want to Sent to the Users.")
-        bot.register_next_step_handler(msg, send_broadcast_to_all)
-    else:
-        bot.reply_to(message, "❌ This Command Can Be Only Use by Admin")
-
-def send_broadcast_to_all(message):
-    broadcast_text = message.text
-    conn = sqlite3.connect('bot_users.db')
-    c = conn.cursor()
-    c.execute("SELECT user_id FROM users")
-    users = c.fetchall()
-    conn.close()
-
-    success_count = 0
-    fail_count = 0
-
-    bot.send_message(ADMIN_ID, f"🚀 Sending to the Users")
-
-    for user in users:
-        try:
-            bot.send_message(user[0], broadcast_text)
-            success_count += 1
-        except Exception:
-            fail_count += 1
-    
-    bot.send_message(ADMIN_ID, f"✅ Sending Finished!\n\nSucceed: {success_count}\nFailed: {fail_count}")
 
 @bot.message_handler(commands=['suggestions'])
 def start_suggestion(message):
@@ -187,15 +198,6 @@ def copy_value(message):
 
     except Exception as e:
         bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
-
-def init_db():
-    conn = sqlite3.connect('bot_users.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY)''')
-    conn.commit()
-    conn.close()
-
-init_db()
 
 if __name__ == "__main__":
     keep_alive()
