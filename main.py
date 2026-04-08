@@ -15,6 +15,7 @@ def keep_alive():
     t.start()
     
 import telebot
+import sqlite3
 
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
