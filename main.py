@@ -108,12 +108,13 @@ items_database = {
 }
 
 @bot.message_handler(commands=['value'])
+@bot.message_handler(commands=['val'])
 def copy_value(message):
     try:
         input_parts = message.text.split(maxsplit=1)
 
         if len(input_parts) < 2:
-            bot.send_message(message.chat.id, "💡 Usage: `/value [item name]`", parse_mode='Markdown')
+            bot.send_message(message.chat.id, "💡 Usage: `/value [item name]`\n\n `/val [item name]`", parse_mode='Markdown')
             return
 
         item_name = input_parts[1].lower().strip()
