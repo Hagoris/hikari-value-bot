@@ -7,7 +7,7 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "Bot is Running 24/7!"
+    return "OK!"
 
 def run():
     port = int(os.environ.get("PORT", 8080))
