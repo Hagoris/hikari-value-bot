@@ -1,3 +1,5 @@
+import telebot
+import os
 from flask import Flask
 from threading import Thread
 
@@ -8,13 +10,12 @@ def home():
     return "Bot is Running 24/7!"
 
 def run():
-    app.run(host='0.0.0.0', port=8080)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
     t = Thread(target=run)
     t.start()
-    
-import telebot
 
 TOKEN = '8754498485:AAHDc9I_yWLe0IanOoF-NNW7eHxSQWE9PGg'
 bot = telebot.TeleBot(TOKEN)
@@ -133,5 +134,8 @@ def copy_value(message):
 
 if __name__ == "__main__":
     keep_alive()
-print("--- Bot is Running ---")
-bot.infinity_polling()
+    print("--- Bot is Running ---")
+    try:
+        bot.infinity_polling(timeout=10, long_polling_timeout=5)
+    except Exception as e:
+        print(f"Error: {e}")
