@@ -92,6 +92,7 @@ items_database = {
     "jõtunn": 9,
     "jotnn": 9,
     "jothnn": 9,
+    "jotunn": 9,
     "equinox moon": 10,
     "moai": 11,
     "grumpy": 12,
