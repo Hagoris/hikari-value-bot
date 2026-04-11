@@ -104,7 +104,12 @@ items_database = {
     "ack": 26,
     "reiss": 27,
     "riss": 27,
-    "riess": 27
+    "riess": 27,
+    "leonhart": 29,
+    "loenhert": 29,
+    "leonheart": 29,
+    "arlert": 30,
+    "arlett": 30
 }
 
 builds_database = {
