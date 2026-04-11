@@ -107,6 +107,13 @@ items_database = {
     "riess": 27
 }
 
+builds_database = {
+    "leonhart female": 28,
+    "leonhart fem": 28,
+    "leonhert female": 28,
+    "leonhert fem": 28
+}
+
 @bot.message_handler(commands=['value', 'val'])
 def copy_value(message):
     try:
@@ -132,6 +139,32 @@ def copy_value(message):
     except Exception as e:
         bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in your Channel and the IDs are correct.")
 
+@bot.message_handler(commands=['build'])
+def send_build(message):
+    try:
+        input_parts = message.text.split(maxsplit=1)
+
+        if len(input_parts) < 2:
+            bot.send_message(message.chat.id, "💡 Usage:\n`/build [family_name] [build_name]`\nExample `/build leonhart female` ", parse_mode='Markdown')
+            return
+
+        build_name = input_parts[1].lower().strip()
+
+        if build_name in builds_database:
+            msg_id = builds_database[build_name]
+
+            bot.copy_message(
+                chat_id=message.chat.id,
+                from_chat_id=CHANNEL_ID,
+                message_id=msg_id
+            )
+        else:
+            bot.send_message(message.chat.id, f"❌ Build '{build_name}' not found.")
+
+    except Exception as e:
+        print(f"Build Error: {e}")
+        bot.send_message(message.chat.id, "⚠️ Error: Something went wrong while fetching the build.")
+        
 if __name__ == "__main__":
     keep_alive()
     print("--- Bot is Running ---")
