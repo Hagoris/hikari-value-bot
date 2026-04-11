@@ -24,16 +24,33 @@ CHANNEL_ID = -1003842909353
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    welcome_msg = (
-        "👋 Welcome to Hikari Value Bot!\n\n"
-        "Type `/value [item name]` to see the value of items.\n"
-        "Type `/suggestions` to Give a Suggestions to The ADMIN."
+   intro_msg = (
+        "👋 **Welcome to Hikari Value Bot!**\n\n"
+        "This bot is designed for **Attack on Titan: Revolution (AOT:R)** players to easily check "
+        "item values and explore recommended character builds.\n\n"
+        "💡 To see how to use the bot, please click the command below:\n"
+        "👉 /help"
     )
     bot.send_message(message.chat.id, welcome_msg, parse_mode='Markdown')
 
+@bot.message_handler(commands=['help'])
+def help_command(message):
+    help_text = (
+        "❓ **How to use Hikari Value Bot**\n\n"
+        "🔹 **Check Item Values:**\n"
+        "Type: `/value [item name]` or `/val [item name]`\n"
+        "_(Example: `/value fritz` )_\n\n"
+        "🔹 **Check Build Guides:**\n"
+        "Type: `/build [family name] [build name]`\n"
+        "_(Example: `/build leonhart female` )_\n\n"
+        "🔹 **Give Suggestions:**\n"
+        "Type: `/suggestions` and then send your feedback message.\n\n"
+        "📌 *Note: Make sure to type the item names correctly.*"
+    )
+    bot.send_message(message.chat.id, help_text, parse_mode='Markdown')
+
 @bot.message_handler(commands=['status'])
 def check_status(message):
-    # Bot က အသက်ရှိကြောင်း ပြန်ပြောမယ့်စာ
     status_text = "✅ Bot Status: Online\n\nEverything is working perfectly! I am ready to help you."
     bot.reply_to(message, status_text, parse_mode='Markdown')
 
