@@ -108,6 +108,7 @@ items_database = {
     "leonhart": 29,
     "loenhert": 29,
     "leonheart": 29,
+    "leoheart": 29,
     "arlert": 30,
     "arlett": 30
 }
