@@ -135,7 +135,8 @@ builds_database = {
     "leonhart female": 28,
     "leonhart fem": 28,
     "leonhert female": 28,
-    "leonhert fem": 28
+    "leonhert fem": 28,
+    "ackerman odm": 31
 }
 
 @bot.message_handler(commands=['value', 'val'])
