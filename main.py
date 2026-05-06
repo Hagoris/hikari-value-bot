@@ -136,10 +136,19 @@ builds_database = {
     "leonhart fem": 28,
     "leonhert female": 28,
     "leonhert fem": 28,
+    "leohearth female": 28,
+    "leohearth fem": 28,
     "ackerman odm": 31,
+    "ack odm": 31,
     "yeager attack": 32,
     "yeager attack titan": 32,
-    "yeager att": 32
+    "yeager att": 32,
+    "ackerman thunder spear": 33,
+    "ack thunder spear": 33,
+    "ackerman ts": 33,
+    "ack ts": 33,
+    "ackerman thunderspear": 33,
+    "ack thunderspear": 33
 }
 
 @bot.message_handler(commands=['value', 'val'])
@@ -187,7 +196,7 @@ def send_build(message):
                 message_id=msg_id
             )
         else:
-            bot.send_message(message.chat.id, f"❌ Build '{build_name}' not found.")
+            bot.send_message(message.chat.id, f"❌ Build '{build_name}' We Don't Have That Build.")
 
     except Exception as e:
         print(f"Build Error: {e}")
