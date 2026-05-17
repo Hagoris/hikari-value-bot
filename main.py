@@ -100,7 +100,10 @@ items_database = {
     "att serum": 13,
     "armour serum": 14,
     "armoured serum": 14,
+    "armor serum": 14,
     "female serum": 15,
+    "femal serum": 15,
+    "fem serum": 15,
     "colossal serum": 16,
     "collosal serum": 16,
     "giyu attire": 17,
@@ -128,7 +131,16 @@ items_database = {
     "leonheart": 29,
     "leoheart": 29,
     "arlert": 30,
-    "arlett": 30
+    "arlett": 30,
+    "susanoo wings": 34,
+    "susano wings": 34,
+    "susanoo wing": 34,
+    "susano wing": 34,
+    "angel's wings": 35,
+    "angel wings": 35,
+    "angel wing": 35,
+    "angle wings": 35,
+    "angle wing": 35
 }
 
 builds_database = {
