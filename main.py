@@ -140,7 +140,14 @@ items_database = {
     "angel wings": 35,
     "angel wing": 35,
     "angle wings": 35,
-    "angle wing": 35
+    "angle wing": 35,
+    "devil's wing": 36,
+    "devil wing": 36,
+    "devil wings": 36,
+    "spirit’s wing": 37,
+    "spirite wing": 37,
+    "sprite wing": 37,
+    "spirte wing": 37
 }
 
 builds_database = {
