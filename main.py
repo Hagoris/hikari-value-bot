@@ -136,6 +136,8 @@ items_database = {
     "soul reaper attire": 21,
     "sra": 21,
     "black flash aura": 22,
+    "black flash": 22,
+    :bf": 22,
     "bf aura": 22,
     "fritz": 23,
     "helos": 24,
@@ -173,6 +175,8 @@ items_database = {
     "sprite wings": 37,
     "spirte wings": 37,
     "spirit wings": 37,
+    "kazeshini": 39,
+    "kaze": 39
 }
 
 builds_database = {
