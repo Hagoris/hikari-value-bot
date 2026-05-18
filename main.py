@@ -137,7 +137,7 @@ items_database = {
     "sra": 21,
     "black flash aura": 22,
     "black flash": 22,
-    :bf": 22,
+    "bf": 22,
     "bf aura": 22,
     "fritz": 23,
     "helos": 24,
