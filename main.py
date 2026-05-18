@@ -58,11 +58,14 @@ def check_status(message):
 def start_suggestion(message):
     msg = bot.send_message(message.chat.id, "Send Your Suggestions or Feedback in Here")
     
-    bot.register_next_step_handler(msg, process_suggestion)
+    bot.register_next_step_handler(msg, process_suggestion, message.from_user.id)
 
-def process_suggestion(message):
+def process_suggestion(message, original_user_id):
+    if message.from_user.id != original_user_id:
+        bot.register_next_step_handler(message, process_suggestion, original_user_id)
+        return
+
     try:
-        
         user_first_name = message.from_user.first_name
         user_username = f"@{message.from_user.username}" if message.from_user.username else "NONE"
         user_id = message.from_user.id
@@ -70,14 +73,13 @@ def process_suggestion(message):
         
         admin_alert = (
             f"📩 New Suggestion has Arrived!\n\n"
-            f"👤 Name {user_first_name}\n"
+            f"👤 Name: {user_first_name}\n"
             f"🆔 Username: {user_username}\n"
-            f"🔢 User ID: {user_id}"
-            f"💬 Suggestion:\n\n {user_text}\n\n"
+            f"🔢 User ID: {user_id}\n"
+            f"💬 Suggestion:\n\n{user_text}\n\n"
         )
         bot.send_message(ADMIN_ID, admin_alert)
-        
-        bot.send_message(message.chat.id, "Thank You! Your Message Has Been Send to ADMIN.")
+        bot.send_message(message.chat.id, "Thank You! Your Message Has Been Sent to ADMIN.")
         
     except Exception as e:
         bot.send_message(message.chat.id, "There was an Error. Please Try Again.")
@@ -120,6 +122,7 @@ items_database = {
     "fem serum": 15,
     "colossal serum": 16,
     "collosal serum": 16,
+    "colo serum": 16,
     "giyu attire": 17,
     "giyu": 17,
     "titanstrike":18,
@@ -161,7 +164,13 @@ items_database = {
     "spirit’s wing": 37,
     "spirite wing": 37,
     "sprite wing": 37,
-    "spirte wing": 37
+    "spirte wing": 37,
+    "spirit wing": 37,
+    "spirit’s wings": 37,
+    "spirite wings": 37,
+    "sprite wings": 37,
+    "spirte wings": 37,
+    "spirit wings": 37,
 }
 
 builds_database = {
