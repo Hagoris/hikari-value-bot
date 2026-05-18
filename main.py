@@ -49,34 +49,6 @@ def help_command(message):
     )
     bot.send_message(message.chat.id, help_text, parse_mode='Markdown')
 
-@bot.message_handler(commands=['list'])
-def send_list(message):
-    seen_ids = set()
-    for name, msg_id in items_database.items():
-        if msg_id not in seen_ids:
-            seen_ids.add(msg_id)
-            item_lines.append(f"• {name}\n`/value {name}`")
-
-    item_list_text = "\n\n".join(item_lines)
-
-    build_lines = []
-    for build_name in builds_database.keys():
-        build_lines.append(f"• {build_name}\n`/build {build_name}`")
-
-    build_list_text = "\n\n".join(build_lines)
-
-    final_message = (
-        "Item List\n"
-        "━━━━━━━━━━━━━━━\n"
-        f"{item_list_text}\n\n" 
-        "━━━━━━━━━━━━━━━\n"
-        "Family Builds List\n"
-        "━━━━━━━━━━━━━━━\n"
-        f"{build_list_text}\n\n"
-        "Tip: Click on the code (e.g. `/value fritz`) to auto-copy it!"
-    )
-    bot.send_message(message.chat.id, final_message, parse_mode='Markdown')
-
 @bot.message_handler(commands=['status'])
 def check_status(message):
     status_text = "✅ Bot Status: Online\n\nEverything is working perfectly! I am ready to help you."
@@ -109,6 +81,20 @@ def process_suggestion(message):
         
     except Exception as e:
         bot.send_message(message.chat.id, "There was an Error. Please Try Again.")
+
+@bot.message_handler(commands=['list'])
+def send_list(message):
+    try:
+        
+        LIST_MESSAGE_ID = 38  
+        
+        bot.copy_message(
+            chat_id=message.chat.id,
+            from_chat_id=CHANNEL_ID,
+            message_id=LIST_MESSAGE_ID
+        )
+    except Exception as e:
+        bot.send_message(message.chat.id, "⚠️ Error: Make sure the Bot is an Admin in the Channel and LIST_MESSAGE_ID is correct.")
 
 items_database = {
     "vizard mask": 4,
