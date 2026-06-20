@@ -176,9 +176,18 @@ items_database = {
     "spirte wings": 37,
     "spirit wings": 37,
     "kazeshini": 39,
-    "kaze": 39
+    "kaze": 39,
+    "shadow's attire": 41,
+    "shadow attire": 41,
+    "shadow": 41,
+    "berserker's attire": 42,
+    "berserker attire": 42,
+    "berserk attire": 42,
+    "berserk's attire": 42,
+    "madara's attire": 43,
+    "madara attire": 43,
+    "madara": 43,
 }
-
 builds_database = {
     "leonhart female": 28,
     "leonhart fem": 28,
