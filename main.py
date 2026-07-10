@@ -197,6 +197,10 @@ items_database = {
     "madara": 43,
     "downbrake": 44,
     "downbraek": 44,
+    "downbreak": 44,
+    "dawnbrake": 44,
+    "dawnbraek": 44,
+    "dawnbreak": 44,
     "shogun's attire": 45,
     "shogun attire": 45
 }
