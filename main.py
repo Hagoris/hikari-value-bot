@@ -32,7 +32,6 @@ def send_welcome(message):
         "👉 /help"
     )
     bot.send_message(message.chat.id, intro_msg, parse_mode='Markdown')
-
 @bot.message_handler(commands=['help'])
 def help_command(message):
     help_text = (
