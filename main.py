@@ -74,10 +74,10 @@ def process_suggestion(message, original_user_id):
         
         admin_alert = (
             f"📩 New Suggestion has Arrived!\n\n"
-            f"👤 Name: {user_first_name}\n"
-            f"🆔 Username: {user_username}\n"
-            f"🔢 User ID: {user_id}\n"
-            f"💬 Suggestion:\n\n{user_text}\n\n"
+            f" *Name:* {user_first_name}\n"
+            f" *Username:* {user_username}\n"
+            f" *User ID:* {user_id}\n"
+            f" *Suggestion:*\n\n{user_text}\n\n"
         )
         bot.send_message(ADMIN_ID, admin_alert)
         bot.send_message(message.chat.id, "Thank You! Your Message Has Been Sent to ADMIN.")
