@@ -25,10 +25,10 @@ CHANNEL_ID = -1003842909353
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     intro_msg = (
-        "👋 **Welcome to Hikari Value Bot!**\n\n"
-        "**This bot is designed for Attack on Titan: Revolution (AOT:R)  players to easily check** "
-        "**item values and explore recommended Families builds.**\n\n"
-        "💡 **To see how to use the bot, please click the command below:**\n"
+        "👋 *Welcome to Hikari Value Bot!*\n\n"
+        "This bot is designed for *Attack on Titan: Revolution (AOT:R)* players to easily check "
+        "item values and explore recommended *Families* builds.\n\n"
+        "💡 *To see how to use the bot, please click the command below:*\n"
         "👉 /help"
     )
     bot.send_message(message.chat.id, intro_msg, parse_mode='Markdown')
