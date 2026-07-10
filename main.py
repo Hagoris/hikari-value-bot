@@ -57,7 +57,7 @@ def check_status(message):
 
 @bot.message_handler(commands=['suggestions'])
 def start_suggestion(message):
-    msg = bot.send_message(message.chat.id, "Send Your Suggestions or Feedback in Here")
+    msg = bot.send_message(message.chat.id, "*Send Your Suggestions or Feedback in Here*")
     
     bot.register_next_step_handler(msg, process_suggestion, message.from_user.id)
 
@@ -83,10 +83,10 @@ def process_suggestion(message, original_user_id):
                          admin_alert,
                          parse_mode="Markdown"
                         )
-        bot.send_message(message.chat.id, "Thank You! Your Message Has Been Sent to ADMIN.")
+        bot.send_message(message.chat.id, "*Thank You! Your Message Has Been Sent to ADMIN.*")
         
     except Exception as e:
-        bot.send_message(message.chat.id, "There was an Error. Please Try Again.")
+        bot.send_message(message.chat.id, "*There was an Error. Please Try Again.*")
 
 @bot.message_handler(commands=['list'])
 def send_list(message):
@@ -189,6 +189,10 @@ items_database = {
     "madara's attire": 43,
     "madara attire": 43,
     "madara": 43,
+    "downbrake": 44,
+    "downbraek": 44,
+    "shogun's attire": 45,
+    "shogun attire": 45
 }
 builds_database = {
     "leonhart female": 28,
