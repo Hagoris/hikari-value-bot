@@ -57,7 +57,9 @@ def check_status(message):
 
 @bot.message_handler(commands=['suggestions'])
 def start_suggestion(message):
-    msg = bot.send_message(message.chat.id, "*Send Your Suggestions or Feedback in Here*")
+    msg = bot.send_message(message.chat.id, "*Send Your Suggestions or Feedback in Here*",
+                          parse_mode="Markdown"
+                          )
     
     bot.register_next_step_handler(msg, process_suggestion, message.from_user.id)
 
@@ -83,10 +85,14 @@ def process_suggestion(message, original_user_id):
                          admin_alert,
                          parse_mode="Markdown"
                         )
-        bot.send_message(message.chat.id, "*Thank You! Your Message Has Been Sent to ADMIN.*")
+        bot.send_message(message.chat.id, "*Thank You! Your Message Has Been Sent to ADMIN.*",
+                        parse_mode="Markdown"
+                        )
         
     except Exception as e:
-        bot.send_message(message.chat.id, "*There was an Error. Please Try Again.*")
+        bot.send_message(message.chat.id, "*There was an Error. Please Try Again.*",
+                        parse_mode="Markdown"
+                        )
 
 @bot.message_handler(commands=['list'])
 def send_list(message):
