@@ -79,7 +79,10 @@ def process_suggestion(message, original_user_id):
             f"*User ID:* {user_id}\n"
             f"*Suggestion:*\n\n{user_text}\n\n"
         )
-        bot.send_message(ADMIN_ID, admin_alert)
+        bot.send_message(ADMIN_ID,
+                         admin_alert,
+                         parse_mode="Markdown"
+                        )
         bot.send_message(message.chat.id, "Thank You! Your Message Has Been Sent to ADMIN.")
         
     except Exception as e:
